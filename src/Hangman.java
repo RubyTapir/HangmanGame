@@ -4,29 +4,39 @@ import model.MaskedWord;
 import utils.UIUtils;
 
 public class Hangman {
-    private Gamer gamer = new Gamer();
-    private DataSource ds = new DataSource();
-    private MaskedWord maskedWord = new MaskedWord();
+    private Gamer gamer = new Gamer("Yura");
+    private DataSource ds = new DataSource("c:/Users/Yury_Rubis/Downloads/words.txt");
+    private MaskedWord maskedWord;
 
     public void start() {
         String word = ds.getRandomWord();
 
-        String letter = UIUtils.readInput("Please type a letter: ");
+        maskedWord = new MaskedWord(word);
 
-        if (letter.length() != 1) {
-            System.out.println("You should enter only one letter!");
+        while (gamer.getAttempts() > 0 && !word.equalsIgnoreCase(maskedWord.getMaskedWord())) {
+            UIUtils.outInput(maskedWord.getMaskedWord());
 
+            String letter = UIUtils.readInput("Please type a letter: ");
 
+            if (letter.length() != 1) {
+                UIUtils.outInput("You should enter only one letter!");
+
+                continue;
+
+            }
+
+            if (!word.contains(letter)) {
+                UIUtils.outInput("There is not such letter in this word!");
+
+                gamer.decreaseAttempts();
+            } else {
+                UIUtils.outInput("Letter is presented in this word!");
+
+                maskedWord.addLetter(letter);
+
+            }
         }
 
-        if(!word.contains(letter)) {
-            System.out.println("There is not such letter in this word!");
-
-            gamer.decreaseAttempts();
-        } else {
-            System.out.println("Letter is presented in this word!");
-
-
-        }
+        UIUtils.outInput("Game over! Dear " + gamer.getName() + " you " + (word.equalsIgnoreCase(maskedWord.getMaskedWord()) ? "win" : "lose"));
     }
 }

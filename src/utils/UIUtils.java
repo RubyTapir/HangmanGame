@@ -30,4 +30,8 @@ public class UIUtils {
 
         return sc.nextLine();
     }
+
+    public static void outInput (String messsage) {
+        System.out.println(messsage);
+    }
 }
