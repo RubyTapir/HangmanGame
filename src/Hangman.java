@@ -5,7 +5,7 @@ import utils.UIUtils;
 
 public class Hangman {
     private Gamer gamer = new Gamer("Yura");
-    private DataSource ds = new DataSource("c:/Users/Yury_Rubis/Downloads/words.txt");
+    private DataSource ds = new DataSource("c:/Git/HangmanGame/words.txt");
     private MaskedWord maskedWord;
 
     public void start() {
